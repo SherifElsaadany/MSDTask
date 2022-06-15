@@ -10,7 +10,7 @@ import UIKit
 class CollageRightView: CollageView {
     
     override func draw(_ rect: CGRect) {
-        let path = createPath()
+        path = createPath()
         let fillColor = UIColor.white
         fillColor.setFill()
         path.lineWidth = 1.0

@@ -8,6 +8,6 @@
 import Foundation
 
 protocol FilteringVCProtocol: AnyObject {
-    func updateImageView(_ data: Data?)
+    func updateImageView(_ data: Data?, reloadCollection: Bool)
     func updateFilters()
 }

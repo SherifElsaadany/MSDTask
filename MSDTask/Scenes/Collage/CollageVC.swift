@@ -10,7 +10,9 @@ import UIKit
 class CollageVC: UIViewController {
     
     let safeView = UIView()
-
+    var collageViews = [CollageView]()
+    var touchedView: CollageView?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         addSafeView()
@@ -19,11 +21,26 @@ class CollageVC: UIViewController {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        print(event)
+        
+        
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         let touch = touches.first
-        if let view = touch?.view as? CollageView {
-            print(view)
-            view.imageView.image = UIImage(named: "image")
-        }
+        handleTouch(touch)
+    }
+    
+    private func  handleTouch(_ touch: UITouch?) {
+        guard let position = touch?.location(in: view) else {return}
+        print("touchesBegan \(position)")
+        let touchedView = collageViews.filter({
+            $0.path.contains(position)
+        })
+        
+        self.touchedView = touchedView.first
+        guard let _ = touchedView.first else {return}
+        showImagePicker()
     }
     
     func addSafeView() {
@@ -50,5 +67,20 @@ class CollageVC: UIViewController {
             view.leadingAnchor.constraint(equalTo: margins.leadingAnchor),
             view.centerXAnchor.constraint(equalTo: margins.centerXAnchor)
         ])
+        
+        self.collageViews.append(view)
+    }
+    
+    private func showImagePicker() {
+        let picker = ImagePickerVC()
+        picker.pickerDelegate = self
+        self.present(picker, animated: true)
+    }
+}
+
+//MARK: - ImagePickerDelegate
+extension CollageVC: ImagePickerDelegate {
+    func didPickImage(_ image: UIImage) {
+        touchedView?.setImage(image)
     }
 }

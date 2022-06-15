@@ -40,11 +40,15 @@ class FilteringVC: UIViewController {
 
 //MARK: - FilteringVCProtocol
 extension FilteringVC: FilteringVCProtocol {
+    
     func updateFilters() {
         filtersCollection.reload()
     }
     
-    func updateImageView(_ data: Data?) {
+    func updateImageView(_ data: Data?, reloadCollection: Bool) {
         handleImageSelection(data)
+        if reloadCollection {
+            filtersCollection.reload()
+        }
     }
 }

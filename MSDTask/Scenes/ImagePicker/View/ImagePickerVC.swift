@@ -11,6 +11,7 @@ class ImagePickerVC: UIImagePickerController {
     
     var pickedImage: UIImage?
     var viewModel: ImagePickerViewModelProtocol?
+    weak var pickerDelegate: ImagePickerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +31,7 @@ extension ImagePickerVC: UIImagePickerControllerDelegate, UINavigationController
             pickedImage = image
             dismiss(animated: false) { [weak self] in
                 self?.viewModel?.didPickImage(image.pngData())
+                self?.pickerDelegate?.didPickImage(image)
             }
         } else {
             dismiss(animated: true)

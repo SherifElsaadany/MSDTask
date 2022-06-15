@@ -21,13 +21,13 @@ class FilteringViewModel {
     
     private(set) var originalImageData: Data? {
         didSet {
-            view?.updateImageView(originalImageData)
+            view?.updateImageView(originalImageData, reloadCollection: true)
         }
     }
     
     var filteredImage: Data? {
         didSet {
-            view?.updateImageView(filteredImage)
+            view?.updateImageView(filteredImage, reloadCollection: false)
         }
     }
     
@@ -60,7 +60,7 @@ extension FilteringViewModel: FiltersCollectionViewModelProtocol {
     }
     
     func onCreateCell(at index: Int, completion: @escaping ((ImageModel?) -> Void)) {
-        filters?[index].getFilteredImageObject(of: originalImageData) { model in
+        filters?[index].getFilteredImageObject(of: originalImageData) { model  in
             completion(model)
         }
     }

@@ -6,7 +6,12 @@
 //
 
 import Foundation
+import UIKit
 
 protocol ImagePickerViewModelProtocol: AnyObject {
     func didPickImage(_ data:  Data?)
+}
+
+protocol ImagePickerDelegate: AnyObject {
+    func didPickImage(_ image: UIImage)
 }

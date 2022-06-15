@@ -9,7 +9,8 @@ import UIKit
 
 class CollageView: UIView {
     
-    let imageView = UIImageView()
+    private let imageView = UIImageView()
+    var path = UIBezierPath()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -30,5 +31,9 @@ class CollageView: UIView {
             imageView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             imageView.centerXAnchor.constraint(equalTo: self.centerXAnchor)
         ])
+    }
+    
+    func setImage(_ image: UIImage) {
+        self.imageView.image = image
     }
 }
